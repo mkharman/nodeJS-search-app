@@ -10,7 +10,7 @@ const path = require('path');
 let isFound = false;
 
 // Function for getting the arguments the user has entered in the command line
-// The arguments which concern the search function are the file extension and name
+// The arguments which concern the search function are the file extension and text to search for
 const getArguments = () => {
     const args = process.argv.slice(2);
     return args;
@@ -29,7 +29,7 @@ const search = directory => {
     }
     else {
         const extension = '.' + fields[0];
-        const fileName = fields[1];
+        const textToSearch = fields[1];
 
         // Gets all the files in the current directory
         const files = fs.readdirSync(directory); 
@@ -40,9 +40,13 @@ const search = directory => {
             if (fs.statSync(`${directory}\\${file}`).isDirectory()) {
                 search(`${directory}\\${file}`);
             }
-            else if (path.extname(file) === extension && file.includes(fileName)) {
-                console.log(`${directory}\\${file}`);
-                isFound = true;
+            else if (path.extname(file) === extension) {
+                // Reads the content of the file
+                let text = fs.readFileSync(`${directory}\\${file}`, 'utf8');
+                if (text.includes(textToSearch)) {
+                    console.log(`${directory}\\${file}`);
+                    isFound = true;
+                }
             }
         });
     }
