@@ -1,5 +1,5 @@
 # nodeJS-search-app
-Simple app for file searching in directories and subdirectories, according to parameters of file extension and file name 
+Simple app for content searching in files, both in directories and subdirectories, according to parameters of file extension and string text to search for
 
 For Unit Testing, enter the following in the command line:
 1) node search.js
